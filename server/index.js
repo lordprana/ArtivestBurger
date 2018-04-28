@@ -1,10 +1,18 @@
 const path = require('path');
+const bodyParser = require('body-parser');
 const express = require('express');
 const PORT = process.env.PORT || 8080;
 const app = express();
 module.exports = app;
 
 const createApp = () => {
+  // body parsing middleware
+  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
+
+  // api route
+  app.use('/api', require('./api'));
+
   // static file-serving middleware
   app.use(express.static(path.join(__dirname, '..', 'public')));
 
