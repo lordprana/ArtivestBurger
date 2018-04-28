@@ -3,7 +3,7 @@ import axios from 'axios'
 import {connect} from 'react-redux';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {UserHome} from './components';
+import {UserHome, AllBurgers, Header} from './components';
 import {retrieveBurgers, retrieveToppings} from './store';
 
 /**
@@ -16,7 +16,9 @@ class Routes extends Component {
 
   render () {
     return (
-    <div>Hello World
+    <div>
+      <Header />
+      <AllBurgers />
       {/*}
       <Switch>
         {/* Routes placed here are available to all visitors}
