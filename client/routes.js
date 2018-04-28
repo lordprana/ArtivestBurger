@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {UserHome} from './components';
-import {retrieveBurgers} from './store';
+import {retrieveBurgers, retrieveToppings} from './store';
 
 /**
  * COMPONENT
@@ -38,6 +38,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
       dispatch(retrieveBurgers());
+      dispatch(retrieveToppings());
     }
   };
 };
