@@ -3,8 +3,8 @@ import axios from 'axios'
 import {connect} from 'react-redux';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {Login, Signup, UserHome} from './components';
-import {me} from './store';
+import {UserHome} from './components';
+import {retrieveBurgers} from './store';
 
 /**
  * COMPONENT
@@ -12,19 +12,20 @@ import {me} from './store';
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData();
-    axios.get('/api/burgers')
-    .then(res => console.log(res.data));
   }
 
   render () {
     return (
+    <div>Hello World
+      {/*}
       <Switch>
-        {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
-      </Switch>
+        {/* Routes placed here are available to all visitors}
+        { /* <Route path="/login" component={Login} />
+    <Route path="/signup" component={Signup} />  }
+        {/* Displays our Login component as a fallback }
+        <Route component={UserHome} />
+    </Switch> */}
+    </div>
     );
   }
 }
@@ -32,30 +33,22 @@ class Routes extends Component {
 /**
  * CONTAINER
  */
-const mapState = (state) => {
-  return {
-    // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
-    // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
-  };
-};
 
 const mapDispatch = (dispatch) => {
   return {
     loadInitialData () {
-      dispatch(me());
+      dispatch(retrieveBurgers());
     }
   };
 };
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes));
+export default withRouter(connect(null, mapDispatch)(Routes));
 
 /**
  * PROP TYPES
  */
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
 };
