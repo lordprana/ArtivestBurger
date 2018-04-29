@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
+import {postBurger, putBurger} from '../store';
 
 
 class BurgerForm extends React.Component {
@@ -88,7 +89,16 @@ class BurgerForm extends React.Component {
     e.preventDefault();
     let form = e.target;
     let jsonRequestBody = this._constructJsonRequestBody(form);
-    console.log(jsonRequestBody);
+
+    // If editBurger is defined, we are editing, else we're creating
+    if (this.editBurger) {
+      this.props.putBurger(jsonRequestBody)
+      .then(() => this.props.history.push('/'));
+    }
+    else {
+      this.props.postBurger(jsonRequestBody)
+      .then(() => this.props.history.push('/'));
+    }
   }
 
   _constructJsonRequestBody(form) {
@@ -138,4 +148,9 @@ const mapState = (state) => {
   };
 };
 
-export default connect(mapState)(BurgerForm);
+const mapDispatch = {
+    postBurger,
+    putBurger
+}
+
+export default connect(mapState, mapDispatch)(BurgerForm);

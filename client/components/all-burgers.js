@@ -19,11 +19,12 @@ class AllBurgers extends React.Component {
   }
 
   render() {
-    const filteredBurgers = this.state.toppingFilter ?
+    let filteredBurgers = this.state.toppingFilter ?
                             this.props.burgers.filter(
                               burger => this._containsTopping(
                                 burger, this.state.toppingFilter)) :
                             this.props.burgers;
+    filteredBurgers.sort((a, b) => b.id - a.id);
     return (
       <div>
         <ToppingsFilter

@@ -17,6 +17,8 @@ const defaultBurgers = [];
  * ACTION CREATORS
  */
 const stockBurgers = burgers => ({type: GET_BURGERS, burgers});
+const addBurger = burger => ({type: ADD_BURGER, burger});
+const editBurger = burger => ({type: EDIT_BURGER, burger});
 
 /**
  * THUNK CREATORS
@@ -29,6 +31,20 @@ export const retrieveBurgers = () =>
         dispatch(stockBurgers(res.data)))
       .catch(console.error.bind(console));
 
+export const postBurger = (burger) =>
+  dispatch =>
+    axios.post('/api/burgers', burger)
+      .then(res =>
+        dispatch(addBurger(res.data)))
+      .catch(console.error.bind(console));
+
+export const putBurger = (burger) =>
+  dispatch =>
+    axios.put(`/api/burgers/${burger.id}`, burger)
+      .then(res =>
+        dispatch(editBurger(res.data)))
+      .catch(console.error.bind(console));
+
 /**
  * REDUCER
  */
@@ -36,6 +52,16 @@ export default function (state = defaultBurgers, action) {
   switch (action.type) {
     case GET_BURGERS:
       return action.burgers;
+    case ADD_BURGER:
+      return [...state, action.burger];
+    case EDIT_BURGER:
+      return state.map(burger => {
+        if (burger.id === action.burger.id) {
+          return action.burger;
+        } else {
+          return burger;
+        }
+      });
     default:
       return state;
   }
