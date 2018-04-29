@@ -6,3 +6,4 @@
 export {default as UserHome} from './user-home';
 export {default as AllBurgers} from './all-burgers';
 export {default as Header} from './header';
+export {default as BurgerForm} from './burger-form';

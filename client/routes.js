@@ -3,7 +3,7 @@ import axios from 'axios'
 import {connect} from 'react-redux';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {UserHome, AllBurgers, Header} from './components';
+import {BurgerForm, AllBurgers, Header} from './components';
 import {retrieveBurgers, retrieveToppings} from './store';
 
 /**
@@ -18,15 +18,12 @@ class Routes extends Component {
     return (
     <div>
       <Header />
-      <AllBurgers />
-      {/*}
+
       <Switch>
-        {/* Routes placed here are available to all visitors}
-        { /* <Route path="/login" component={Login} />
-    <Route path="/signup" component={Signup} />  }
-        {/* Displays our Login component as a fallback }
-        <Route component={UserHome} />
-    </Switch> */}
+        <Route path="/edit/:id" component={BurgerForm} />
+        <Route path="/create" component={BurgerForm} />
+        <Route component={AllBurgers} />
+    </Switch>
     </div>
     );
   }
