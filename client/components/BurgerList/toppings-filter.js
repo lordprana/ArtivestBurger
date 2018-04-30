@@ -14,7 +14,7 @@ const updateActiveClass = (node) => {
   node.classList.add('active-topping-option');
 };
 
-const ToppingsFilter = ({toppings, setToppingsFilter}) => {
+export const ToppingsFilter = ({toppings, setToppingsFilter}) => {
 
   return (
     <div className="toppings-filter-container">

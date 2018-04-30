@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 /**
  * COMPONENT
@@ -22,3 +23,10 @@ const Header = ({history}) => {
 };
 
 export default Header;
+
+/**
+ * PROP TYPES
+ */
+Header.propTypes = {
+  history: PropTypes.object
+};

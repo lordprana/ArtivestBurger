@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {deleteBurger} from '../store';
+import {deleteBurger} from '../../store';
 
 /**
  * COMPONENT
@@ -29,7 +29,7 @@ const handleDeleteClick = (id, deleteFunc) => () => {
   deleteFunc(id);
 };
 
-const SingleBurger = ({burger, history, deleteBurger}) => {
+export const SingleBurger = ({burger, history, deleteBurger}) => {
 
   return (
     <div className="single-burger-container">
@@ -68,5 +68,7 @@ export default connect(null, mapDispatch)(SingleBurger);
  * PROP TYPES
  */
 SingleBurger.propTypes = {
-  burger: PropTypes.object
+  burger: PropTypes.object,
+  history: PropTypes.object,
+  deleteBurger: PropTypes.func
 };

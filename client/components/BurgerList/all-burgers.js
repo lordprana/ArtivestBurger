@@ -7,7 +7,7 @@ import ToppingsFilter from './toppings-filter';
 /**
  * COMPONENT
  */
-class AllBurgers extends React.Component {
+export class AllBurgers extends React.Component {
   constructor(props) {
     super(props);
 

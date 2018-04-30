@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {postBurger, putBurger} from '../store';
 
 
-class BurgerForm extends React.Component {
+export class BurgerForm extends React.Component {
   constructor (props) {
     super(props);
     this.editBurger = props.burgers.find(burger => burger.id === +props.match.params.id);
@@ -57,7 +57,7 @@ class BurgerForm extends React.Component {
               name="has_bun"
               type="checkbox"
               checked={this.state.has_bun}
-              onClick={this._handleCheckboxClick} />
+              onChange={this._handleCheckboxClick} />
             <label>Has bun</label>
           </div>
           <div className="burger-checkbox">
@@ -65,7 +65,7 @@ class BurgerForm extends React.Component {
               name="has_patty"
               type="checkbox"
               checked={this.state.has_patty}
-              onClick={this._handleCheckboxClick} />
+              onChange={this._handleCheckboxClick} />
             <label>Has patty</label>
           </div>
           {toppings.map(topping => (
@@ -74,7 +74,7 @@ class BurgerForm extends React.Component {
                 name={topping.name}
                 type="checkbox"
                 checked={this.state[topping.name]}
-                onClick={this._handleCheckboxClick} />
+                onChange={this._handleCheckboxClick} />
               <label>{topping.name}</label>
             </div>
           ))}
@@ -94,6 +94,7 @@ class BurgerForm extends React.Component {
     e.preventDefault();
     let form = e.target;
     let jsonRequestBody = this._constructJsonRequestBody(form);
+    console.log(jsonRequestBody);
 
     if (jsonRequestBody.name === '') {
       this.setState({valid_name: false});
@@ -130,6 +131,7 @@ class BurgerForm extends React.Component {
   _handleCheckboxClick(e) {
     let updateState = {};
     updateState[e.target.name] = e.target.checked;
+    console.log(updateState);
     this.setState(updateState);
   }
 
@@ -165,3 +167,11 @@ const mapDispatch = {
 };
 
 export default connect(mapState, mapDispatch)(BurgerForm);
+
+/**
+ * PROP TYPES
+ */
+BurgerForm.propTypes = {
+  burgers: PropTypes.array,
+  toppings: PropTypes.array
+};
