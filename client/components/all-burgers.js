@@ -16,6 +16,7 @@ class AllBurgers extends React.Component {
     };
 
     this._setToppingsFilter = this._setToppingsFilter.bind(this);
+    this._handleAddBurgerClick = this._handleAddBurgerClick.bind(this);
   }
 
   render() {
@@ -32,9 +33,16 @@ class AllBurgers extends React.Component {
           setToppingsFilter={this._setToppingsFilter} />
         <div className="all-burgers-container">
           {filteredBurgers.map(burger => (
-            <SingleBurger key={burger.id} burger={burger} />
+            <SingleBurger
+              key={burger.id}
+              burger={burger}
+              history={this.props.history} />
           ))}
-          <div className="single-burger-container add-burger-button">+</div>
+          <div
+            className="single-burger-container add-burger-button"
+            onClick={this._handleAddBurgerClick}>
+            +
+          </div>
         </div>
       </div>
     );
@@ -42,6 +50,10 @@ class AllBurgers extends React.Component {
 
   _setToppingsFilter(topping) {
     this.setState({toppingFilter: topping});
+  }
+
+  _handleAddBurgerClick() {
+    this.props.history.push('/create');
   }
 
   _containsTopping(burger, filter) {

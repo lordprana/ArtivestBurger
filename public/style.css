@@ -24,6 +24,7 @@ body {
 .header-text {
   margin: 0px;
   font-family: 'Cedarville Cursive', cursive;
+  cursor: pointer;
 }
 
 .all-burgers-container {
@@ -35,7 +36,7 @@ body {
   position: relative;
   background-color: #2bba99;
   width: 150px;
-  height: 200px;
+  height: 190px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 10px;
   margin: 0px 20px 40px 20px;
@@ -50,8 +51,12 @@ body {
 }
 
 .burger-items-container{
-  height: 180px;
-  overflow: scroll;
+  height: 170px;
+  overflow: auto;
+}
+
+.burger-items-container::-webkit-scrollbar {
+  background: transparent;
 }
 
 .burger-name {
@@ -102,4 +107,28 @@ body {
 
 .active-topping-option {
   background-color: #2bba99;
+}
+
+.form-container {
+  margin: 20px;
+  padding: 10px;
+  background-color: #2bba99;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  width: 200px;
+}
+
+.submit-input {
+  margin-top: 6px;
+}
+
+.burger-name-input {
+  margin-bottom: 6px;
+}
+
+.burger-checkbox {
+  margin: 1px 0px;
+}
+
+.form-validation-error {
+  margin-top: 6px;
 }

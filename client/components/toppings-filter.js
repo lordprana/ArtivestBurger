@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 /**
  * COMPONENT
@@ -12,7 +12,7 @@ const updateActiveClass = (node) => {
     option.classList.remove('active-topping-option');
   });
   node.classList.add('active-topping-option');
-}
+};
 
 const ToppingsFilter = ({toppings, setToppingsFilter}) => {
 
@@ -36,8 +36,8 @@ const ToppingsFilter = ({toppings, setToppingsFilter}) => {
           </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
 export default ToppingsFilter;
 
@@ -47,4 +47,4 @@ export default ToppingsFilter;
 ToppingsFilter.propTypes = {
   toppings: PropTypes.array,
   setToppingsFilter: PropTypes.func
-}
+};

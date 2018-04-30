@@ -19,3 +19,9 @@ router.put('/:id', (req, res, next) => {
   .then(response => res.json(response.data))
   .catch(next);
 });
+
+router.delete('/:id', (req, res, next) => {
+  axios.delete(`https://vast-brushlands-48771.herokuapp.com/api/burgers/${req.params.id}/`)
+  .then(() => res.sendStatus(204))
+  .catch(next);
+});

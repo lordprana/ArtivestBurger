@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import axios from 'axios'
+import axios from 'axios';
 import {connect} from 'react-redux';
 import {withRouter, Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -17,7 +17,7 @@ class Routes extends Component {
   render () {
     return (
     <div>
-      <Header />
+      <Header history={this.props.history} />
 
       <Switch>
         <Route path="/edit/:id" component={BurgerForm} />

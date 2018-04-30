@@ -17,7 +17,7 @@ describe('Topping routes', () => {
 
     afterEach(() => {
       mockAxios.restore();
-    })
+    });
 
     it('GET /api/toppings', () => {
       const toppingName = 'tuna';

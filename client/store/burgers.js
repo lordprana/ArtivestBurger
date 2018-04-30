@@ -19,6 +19,7 @@ const defaultBurgers = [];
 const stockBurgers = burgers => ({type: GET_BURGERS, burgers});
 const addBurger = burger => ({type: ADD_BURGER, burger});
 const editBurger = burger => ({type: EDIT_BURGER, burger});
+const removeBurger = id => ({type: REMOVE_BURGER, id});
 
 /**
  * THUNK CREATORS
@@ -45,6 +46,12 @@ export const putBurger = (burger) =>
         dispatch(editBurger(res.data)))
       .catch(console.error.bind(console));
 
+export const deleteBurger = (id) =>
+  dispatch =>
+    axios.delete(`/api/burgers/${id}`)
+      .then(() =>
+        dispatch(removeBurger(id)))
+      .catch(console.error.bind(console));
 /**
  * REDUCER
  */
@@ -62,6 +69,8 @@ export default function (state = defaultBurgers, action) {
           return burger;
         }
       });
+    case REMOVE_BURGER:
+      return state.filter(burger => burger.id !== action.id);
     default:
       return state;
   }

@@ -12,7 +12,8 @@ class BurgerForm extends React.Component {
     this.state = {
       name: this.editBurger && this.editBurger.name,
       has_bun: this.editBurger && this.editBurger.has_bun,
-      has_patty: this.editBurger && this.editBurger.has_patty
+      has_patty: this.editBurger && this.editBurger.has_patty,
+      valid_name: true
     };
     this.props.toppings.forEach(topping => {
       this.state[topping.name] = this.editBurger && this._hasTopping(this.editBurger, topping);
@@ -40,25 +41,26 @@ class BurgerForm extends React.Component {
   render() {
     let {burgers, toppings, match} = this.props;
     return (
-      <div>
+      <div className="form-container">
         <form onSubmit={this._handleSubmit}>
           <div>
-            <label>Name<br /></label>
             <input
+              className="burger-name-input"
               name="name"
               type="text"
+              placeholder="Burger name..."
               value={this.state.name}
               onChange={this._handleTextInputChange} />
           </div>
-          <div>
+          <div className="burger-checkbox">
             <input
               name="has_bun"
               type="checkbox"
               checked={this.state.has_bun}
-              onClick={this._handleCheckboxClick}/>
+              onClick={this._handleCheckboxClick} />
             <label>Has bun</label>
           </div>
-          <div>
+          <div className="burger-checkbox">
             <input
               name="has_patty"
               type="checkbox"
@@ -67,7 +69,7 @@ class BurgerForm extends React.Component {
             <label>Has patty</label>
           </div>
           {toppings.map(topping => (
-            <div key={topping.name}>
+            <div key={topping.name} className="burger-checkbox">
               <input
                 name={topping.name}
                 type="checkbox"
@@ -76,9 +78,12 @@ class BurgerForm extends React.Component {
               <label>{topping.name}</label>
             </div>
           ))}
-          <div>
-            <input type="submit" value="Submit" />
+          <div className="submit-input">
+            <input className="btn" type="submit" value="Submit" />
           </div>
+          { !this.state.valid_name &&
+            <div className="form-validation-error">Burger name cannot be empty</div>}
+
         </form>
       </div>
     );
@@ -89,6 +94,11 @@ class BurgerForm extends React.Component {
     e.preventDefault();
     let form = e.target;
     let jsonRequestBody = this._constructJsonRequestBody(form);
+
+    if (jsonRequestBody.name === '') {
+      this.setState({valid_name: false});
+      return;
+    }
 
     // If editBurger is defined, we are editing, else we're creating
     if (this.editBurger) {
@@ -111,7 +121,7 @@ class BurgerForm extends React.Component {
     for ( let i = 3; i < form.elements.length; i++) {
       let el = form.elements[i];
       if (el.checked) {
-        jsonRequestBody.toppings.push({'name': el.name});
+        jsonRequestBody.toppings.push({name: el.name});
       }
     }
     return jsonRequestBody;
@@ -126,6 +136,7 @@ class BurgerForm extends React.Component {
   _handleTextInputChange(e) {
     let updateState = {};
     updateState[e.target.name] = e.target.value;
+    updateState.valid_name = true;
     this.setState(updateState);
   }
 
@@ -151,6 +162,6 @@ const mapState = (state) => {
 const mapDispatch = {
     postBurger,
     putBurger
-}
+};
 
 export default connect(mapState, mapDispatch)(BurgerForm);

@@ -1,5 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {deleteBurger} from '../store';
 
 /**
  * COMPONENT
@@ -16,10 +18,18 @@ const renderToppings = (burger) => {
         ))}
       </ul>
     </div>
-  )
-}
+  );
+};
 
-const SingleBurger = ({burger}) => {
+const handleEditClick = (id, history) => () => {
+  history.push(`/edit/${id}`);
+};
+
+const handleDeleteClick = (id, deleteFunc) => () => {
+  deleteFunc(id);
+};
+
+const SingleBurger = ({burger, history, deleteBurger}) => {
 
   return (
     <div className="single-burger-container">
@@ -30,18 +40,33 @@ const SingleBurger = ({burger}) => {
         <div className="burger-item">{renderToppings(burger)}</div>
       </div>
       <div className="burger-buttons">
-        <button className="btn">Edit</button>
-        <button className="btn">Delete</button>
+        <button
+          className="btn"
+          onClick={handleEditClick(burger.id, history)}>
+          Edit
+        </button>
+        <button
+          className="btn"
+          onClick={handleDeleteClick(burger.id, deleteBurger)}>
+          Delete
+        </button>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SingleBurger;
+/**
+ * CONTAINER
+ */
+const mapDispatch = {
+  deleteBurger
+};
+
+export default connect(null, mapDispatch)(SingleBurger);
 
 /**
  * PROP TYPES
  */
 SingleBurger.propTypes = {
   burger: PropTypes.object
-}
+};
